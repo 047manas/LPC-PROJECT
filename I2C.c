@@ -29,12 +29,15 @@ uint8_t I2C_start(void)
     // setting start bit 
     I2C0->I2CONSET = I2C0_Start_Bit;
 
+    // clearing interupt flag to load start in the register and give latest status 
+    I2C0->I2CONCLR = I2C0_INTR;
+
     // checking is the start bit set or not using the flag
     while((I2C0->I2CONSET & I2C0_INTR) == 0);
 
     // check is start condition transmitted
 
-    if(I2C0->I2STAT == 0x08)
+    if(I2C0->I2STAT == start_sent || I2C0->I2SAT == rep_start_sent)
     {
 
         start_status = 1;

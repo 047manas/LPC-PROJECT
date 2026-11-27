@@ -11,7 +11,14 @@
 #define I2C0_INTR (1 << 3)
 #define I2C0_Stop_Bit (1 << 4)
 
+typedef enum{
 
+    start_sent = 0x08,
+    rep_start_sent = 0x10,
+    address_write_sent = 0x18,
+    data_sent = 0x28
+
+} status_code;
 
 
 void I2C_init(void);
